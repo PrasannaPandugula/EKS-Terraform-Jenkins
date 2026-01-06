@@ -28,10 +28,21 @@ variable "pri-rt-name" {}
 variable "eks-sg" {}
 
 # Iam var
-variable "is_eks_role_enabled" {
+variable "is-eks-role-enabled" {
   type = bool
 }
 
-variable "is_eks_nodegroup_role_enabled" {
+variable "is-eks-nodegroup-role-enabled" {
   type = bool
+}
+variable "is-eks-cluster-enabled" {
+  
+}
+variable "cluster-version" {
+  
+}
+variable "endpoint-private-access" {
+  
+}
+variable "endpoint-public-access" { 
 }

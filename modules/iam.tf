@@ -9,7 +9,7 @@ resource "random_integer" "random_suffix" {
 
 # master node
 resource "aws_iam_role" "eks_cluster_role" {
-  count = var.is_eks_role_enabled ? 1 : 0
+  count = var.is-eks-role-enabled ? 1 : 0
   name = "${local.cluster_name}-role-${random_integer.random_suffix.result}"
 
   assume_role_policy = jsonencode({
@@ -27,14 +27,14 @@ resource "aws_iam_role" "eks_cluster_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
-   count = var.is_eks_role_enabled ? 1 : 0
+   count = var.is-eks-role-enabled ? 1 : 0
    policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
    role = aws_iam_role.eks_cluster_role[count.index].name
    }
 
 # worker node
 resource "aws_iam_role" "eks_nodegroup_role" {
-  count = var.is_eks_nodegroup_role_enabled ? 1 : 0
+  count = var.is-eks-nodegroup-role-enabled ? 1 : 0
   name = "${local.cluster_name}-role-${random_integer.random_suffix.result}"
 
   assume_role_policy = jsonencode({
@@ -52,26 +52,26 @@ resource "aws_iam_role" "eks_nodegroup_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonWorkerNodePolicy" {
-   count = var.is_eks_nodegroup_role_enabled ? 1 : 0
+   count = var.is-eks-nodegroup-role-enabled ? 1 : 0
    policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
    role = aws_iam_role.eks_nodegroup_role[count.index].name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSCNIPolicy" {
-   count = var.is_eks_nodegroup_role_enabled ? 1 : 0
+   count = var.is-eks-nodegroup-role-enabled ? 1 : 0
    policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
    role = aws_iam_role.eks_nodegroup_role.name[count.index].name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
-   count = var.is_eks_nodegroup_role_enabled ? 1 : 0
+   count = var.is-eks-nodegroup-role-enabled ? 1 : 0
    policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
    role = aws_iam_role.eks_nodegroup_role.name[count.index].name
 }
 
 # need this policy if EKS uses persistent volumes
 resource "aws_iam_role_policy_attachment" "AmazonEBSCSIDriverPolicy" {
-   count = var.is_eks_nodegroup_role_enabled ? 1 : 0
+   count = var.is-eks-nodegroup-role-enabled ? 1 : 0
    policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
    role = aws_iam_role.eks_nodegroup_role.name[count.index].name
 }
