@@ -35,14 +35,32 @@ variable "is-eks-role-enabled" {
 variable "is-eks-nodegroup-role-enabled" {
   type = bool
 }
-variable "is-eks-cluster-enabled" {
-  
+
+# EKS var
+variable "is-eks-cluster-enabled" {}
+variable "cluster-version" {}
+variable "endpoint-private-access" {}
+variable "endpoint-public-access" {}
+variable "addons" {
+  type = list(object({
+    name = string
+    version = string
+  }))
 }
-variable "cluster-version" {
-  
+
+variable "desired_capacity_on_demand" {  
 }
-variable "endpoint-private-access" {
-  
+variable "min_capacity_on_demand" {  
 }
-variable "endpoint-public-access" { 
+variable "max_capacity_on_demand" {
+}
+variable "ondemand_instance_type" {
+}
+variable "desired_capacity_spot" {
+}
+variable "min_capacity_spot" {
+}
+variable "max_capacity_spot" {
+}
+variable "spot_instance_type" {
 }
